@@ -34,11 +34,11 @@ spec:
         limits:
           cpu: "2"
           memory: 8Gi
-          nvidia.com/gpu: "1"
+          habana.ai/gaudi "1"
         requests:
           cpu: "1"
           memory: 4Gi
-          nvidia.com/gpu: "1"
+          habana.ai/gaudi: "1"
           ephemeral-storage: {{ $model.storageSize | default "50Gi" }}
       {{- end }}
       {{- end }}
@@ -59,7 +59,7 @@ spec:
     {{- if hasKey $model "tolerations" }}
     {{- toYaml $model.tolerations | nindent 4 }}
     {{- else }}
-    - key: nvidia.com/gpu
+    - key: habana.ai/gaudi
       effect: NoSchedule
       operator: Exists
     {{- end }}

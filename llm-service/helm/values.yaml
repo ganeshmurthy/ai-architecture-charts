@@ -7,7 +7,7 @@ servingRuntime:
   gpuImage: quay.io/ecosystem-appeng/vllm:openai-v0.8.5
   cpuImage: quay.io/ecosystem-appeng/vllm:cpu-v0.8.5
   recommendedAccelerators:
-    - nvidia.com/gpu
+    - habana.ai/gaudi
   env:
     - name: HOME
       value: /vllm
@@ -88,7 +88,7 @@ models:
     enabled: false
     resources:
       limits:
-        nvidia.com/gpu: "1"
+        habana.ai/gaudi: "1"
     args:
       - --max-model-len
       - "14336"
@@ -104,7 +104,7 @@ models:
     storageSize: 150Gi
     resources:
       limits:
-        nvidia.com/gpu: "4"
+        habana.ai/gaudi: "4"
     args:
       - --tensor-parallel-size
       - "4"
