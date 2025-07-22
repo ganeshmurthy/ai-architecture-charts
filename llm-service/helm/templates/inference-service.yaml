@@ -27,21 +27,21 @@ spec:
         name: vLLM
       name: ""
       resources:
-      {{- if hasKey $model "resources" }}
-      {{- toYaml $model.resources | nindent 8 }}
-      {{- else }}
-      {{- if eq $root.Values.device "gpu" }}
-        limits:
-          cpu: "2"
-          memory: 8Gi
-          habana.ai/gaudi "1"
-        requests:
-          cpu: "1"
-          memory: 4Gi
-          habana.ai/gaudi: "1"
-          ephemeral-storage: {{ $model.storageSize | default "50Gi" }}
-      {{- end }}
-      {{- end }}
+        {{- if hasKey $model "resources" }}
+        {{- toYaml $model.resources | nindent 8 }}
+        {{- else }}
+        {{- if eq $root.Values.device "gpu" }}
+          limits:
+            cpu: "2"
+            memory: 8Gi
+            habana.ai/gaudi: "1"
+          requests:
+            cpu: "1"
+            memory: 4Gi
+            habana.ai/gaudi: "1"
+            ephemeral-storage: {{ $model.storageSize | default "50Gi" }}
+        {{- end }}
+        {{- end }}
       runtime: {{ $root.Values.servingRuntime.name }}
       args:
       - --model
