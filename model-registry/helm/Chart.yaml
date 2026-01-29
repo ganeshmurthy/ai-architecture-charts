@@ -16,4 +16,6 @@ dependencies:
     version: ">=0.1.0"
     repository: "file://../../pgvector/helm"
     condition: postgres.enabled
+    # Note: When using this chart as a subchart, you may need to rebuild 
+    # dependencies or use the published chart from ai-architecture-charts repo
 
