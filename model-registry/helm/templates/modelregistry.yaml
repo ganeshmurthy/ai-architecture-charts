@@ -20,7 +20,7 @@ spec:
     database: {{ .Values.postgres.database }}
     username: {{ .Values.postgres.user }}
     passwordSecret:
-      name: {{ include "model-registry.postgres.secretName" . }}
+      name: {{ include "model-registry.resourceName" . }}-db-secret
       key: password
     skipDBCreation: {{ .Values.postgres.skipDBCreation | default false }}
   {{- if .Values.istio.enabled }}
