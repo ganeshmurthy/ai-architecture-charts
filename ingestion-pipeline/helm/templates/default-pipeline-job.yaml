@@ -52,6 +52,18 @@ spec:
                 sleep 10
               done
               echo "Llama Stack server is running"
+
+              # Warm up the embedding model to prevent meta tensor errors
+              EMBEDDING_MODEL="{{ $pipeline.embedding_model | default "all-MiniLM-L6-v2" }}"
+              echo "Warming up embedding model: $EMBEDDING_MODEL..."
+              until curl -sf -X POST "http://llamastack:8321/v1/inference/embeddings" \
+                -H "Content-Type: application/json" \
+                -d "{\"model_id\": \"$EMBEDDING_MODEL\", \"contents\": [\"warmup\"]}" \
+                --max-time 60 | grep -q "embeddings"; do
+                echo "  Waiting for embedding model to load..."
+                sleep 5
+              done
+              echo "Embedding model ready!"
       containers:
         - name: create-ingestion-pipeline
           image: "image-registry.openshift-image-registry.svc:5000/openshift/tools:latest"
